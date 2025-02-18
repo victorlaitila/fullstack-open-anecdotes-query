@@ -11,3 +11,8 @@ export const createNew = async (object) => {
   const response = await axios.post(baseUrl, object)
   return response.data
 }
+
+export const modifyById = async (object) => {
+  const response = await axios.put(`${baseUrl}/${object.id}`, object)
+  return response.data
+}

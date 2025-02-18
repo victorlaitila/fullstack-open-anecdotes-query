@@ -7,9 +7,8 @@ const AnecdoteForm = () => {
   const newAnecdoteMutation = useMutation({
     mutationFn: createNew,
     onSuccess: (newAnecdote) => {
-      console.log(newAnecdote)
       const anecdotes = queryClient.getQueryData(['anecdotes'])
-      queryClient.setQueryData(['anecdotes'], anecdotes.concat(newAnecdote))
+      queryClient.setQueryData(['anecdotes'], anecdotes.concat(newAnecdote).sort((a,b) => b.votes - a.votes))
     }
   })
 
@@ -18,8 +17,7 @@ const AnecdoteForm = () => {
     const content = event.target.anecdote.value
     event.target.anecdote.value = ''
     newAnecdoteMutation.mutate({ content, votes: 0 })
-    console.log('new anecdote')
-}
+  }
 
   return (
     <div>
